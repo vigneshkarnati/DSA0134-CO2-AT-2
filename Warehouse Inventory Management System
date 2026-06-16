@@ -1,0 +1,87 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class Warehouse
+{
+private:
+    int itemID, quantity;
+    string name, location;
+public:
+    static int totalItems;
+    void addItem()
+    {
+        cout << "Enter Item ID: ";
+        cin >> itemID;
+        cin.ignore();
+        cout << "Enter Item Name: ";
+        getline(cin, name);
+        cout << "Enter Quantity: ";
+        cin >> quantity;
+        if(quantity < 0)
+        {
+            cout << "Invalid Quantity!\n";
+            quantity = 0;
+        }
+        cin.ignore();
+        cout << "Enter Location: ";
+        getline(cin, location);
+        totalItems++;
+    }
+    void updateStock()
+    {
+        int qty;
+        cout << "Enter New Quantity: ";
+        cin >> qty;
+        if(qty >= 0)
+            quantity = qty;
+    }
+    void display()
+    {
+        cout << "\nItem ID : " << itemID;
+        cout << "\nName    : " << name;
+        cout << "\nQuantity: " << quantity;
+        cout << "\nLocation: " << location << endl;
+    }
+};
+int Warehouse::totalItems = 0;
+int main()
+{
+    int n;
+    cout << "Enter Number of Items: ";
+    cin >> n;
+    Warehouse w[100];
+    for(int i=0;i<n;i++)
+        w[i].addItem();
+    cout << "\nInventory Details\n";
+    for(int i=0;i<n;i++)
+        w[i].display();
+
+    cout << "\nTotal Items Stored: "
+         << Warehouse::totalItems;
+    return 0;
+}
+
+Output:
+Enter Number of Items: 2
+Enter Item ID: 1
+Enter Item Name: Laptop
+Enter Quantity: 10
+Enter Location: A1
+Enter Item ID: 2
+Enter Item Name: Printer
+Enter Quantity: 5
+Enter Location: B2
+
+Inventory Details
+
+Item ID : 1
+Name    : Laptop
+Quantity: 10
+Location: A1
+
+Item ID : 2
+Name    : Printer
+Quantity: 5
+Location: B2
+
+Total Items Stored: 2
