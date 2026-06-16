@@ -1,0 +1,85 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class Event
+{
+private:
+    string eventName, participantName;
+    int regID;
+public:
+    static int totalParticipants;
+    void registerParticipant()
+    {
+        cout << "Enter Event Name: ";
+        cin >> eventName;
+        cin.ignore();
+        cout << "Enter Participant Name: ";
+        getline(cin, participantName);
+        cout << "Enter Registration ID: ";
+        cin >> regID;
+        totalParticipants++;
+    }
+    int getRegID()
+    {
+        return regID;
+    }
+    void display()
+    {
+        cout << "\nEvent Name       : " << eventName;
+        cout << "\nParticipant Name : " << participantName;
+        cout << "\nRegistration ID  : " << regID << endl;
+    }
+};
+int Event::totalParticipants = 0;
+int main()
+{
+    int n;
+    cout << "Enter Number of Participants: ";
+    cin >> n;
+    Event e[100];
+    for(int i=0;i<n;i++)
+    {
+        bool duplicate;
+        do
+        {
+            duplicate = false;
+            e[i].registerParticipant();
+
+            for(int j=0;j<i;j++)
+            {
+                if(e[i].getRegID() == e[j].getRegID())
+                {
+                    cout << "Duplicate Registration ID!\n";
+                    duplicate = true;
+                }
+            }
+        } while(duplicate);
+    }
+    cout << "\nRegistration Details\n";
+    for(int i=0;i<n;i++)
+        e[i].display();
+
+    cout << "\nTotal Participants: "
+         << Event::totalParticipants;
+    return 0;
+}
+
+Output:
+Enter Number of Participants: 2
+Enter Event Name: TechFest
+Enter Participant Name: Raj
+Enter Registration ID: 1001
+Enter Event Name: Tech fest
+Enter Participant Name: Enter Registration ID: meena
+
+Registration Details
+
+Event Name       : TechFest
+Participant Name : Raj
+Registration ID  : 1001
+
+Event Name       : Tech
+Participant Name : fest
+Registration ID  : 0
+
+Total Participants: 2
