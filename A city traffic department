@@ -1,0 +1,85 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class Violation
+{
+private:
+    string vehicleNo, ownerName, violationType;
+    double fineAmount;
+public:
+    static int totalViolations;
+    void input()
+    {
+        cout << "Enter Vehicle Number: ";
+        cin >> vehicleNo;
+        if(vehicleNo.length() < 4)
+        {
+            cout << "Invalid Vehicle Number!\n";
+            return;
+        }
+        cin.ignore();
+        cout << "Enter Owner Name: ";
+        getline(cin, ownerName);
+        cout << "Enter Violation Type (Signal/Helmet/Speed): ";
+        cin >> violationType;
+        calculateFine();
+        totalViolations++;
+    }
+    void calculateFine()
+    {
+        if(violationType == "Signal")
+            fineAmount = 500;
+        else if(violationType == "Helmet")
+            fineAmount = 300;
+        else if(violationType == "Speed")
+            fineAmount = 1000;
+        else
+        {
+            cout << "Invalid Violation Type!\n";
+            fineAmount = 0;
+        }
+    }
+    void display()
+    {
+        cout << "\nVehicle No : " << vehicleNo;
+        cout << "\nOwner Name : " << ownerName;
+        cout << "\nViolation  : " << violationType;
+        cout << "\nFine Amount: Rs." << fineAmount << endl;
+    }
+};
+int Violation::totalViolations = 0;
+int main()
+{
+    int n;
+    cout << "Enter Number of Violations: ";
+    cin >> n;
+    Violation v[100];
+    for(int i=0;i<n;i++)
+    {
+        cout << "\nViolation " << i+1 << endl;
+        v[i].input();
+    }
+    cout << "\nViolation Reports\n";
+    for(int i=0;i<n;i++)
+        v[i].display();
+
+    cout << "\nTotal Violations Recorded: "
+         << Violation::totalViolations;
+    return 0;
+}
+Output:
+Enter Number of Violations: 1
+
+Violation 1
+Enter Vehicle Number: TN01AB1234
+Enter Owner Name: Ravi
+Enter Violation Type (Signal/Helmet/Speed): Signal
+
+Violation Reports
+
+Vehicle No : TN01AB1234
+Owner Name : Ravi
+Violation  : Signal
+Fine Amount: Rs.500
+
+Total Violations Recorded: 1
